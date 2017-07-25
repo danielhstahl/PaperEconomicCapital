@@ -1,0 +1,391 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper]{geometry}
+\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
+%\usepackage[margin=.9in]{geometry}
+\usepackage{probstat}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{amsthm}
+\theoremstyle{definition}
+
+\newtheorem{quest}{Question}
+\newtheorem{iss}{Issue}
+\newtheorem*{rec}{Recommendation}
+\newtheorem{riskmeasure}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\setstretch{1} 
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                  {2.3ex \@plus.2ex}%
+                                  {\normalfont\large\bfseries}}
+\makeatother
+
+%\setlength{\parindent}{1cm}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\usepackage[nogin]{Sweave}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{times}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\footrulewidth}{0pt} 
+\setlength\headsep{0.333in}
+%\setlength{\parindent}{1cm}
+\newcommand{\bibent}{\noindent \hangindent 40pt}
+%\newcommand{\par}{\indent}
+\newenvironment{workscited}{\newpage \begin{center} \large{\textbf{Works Cited}} \end{center}}{\newpage }
+
+\newtheorem{prop}{Proposition}
+%%%%% edit the next few lines using your information
+%
+\chead{}
+\lhead{Audit Services|Quantitative Analysis}
+\rhead{BB\&T \thepage}
+\title{Economic Capital}
+\pagestyle{fancy}
+
+
+\def\R{{\sf R}}
+\def\Rstudio{{\sf R}Studio}
+
+%%%% some things to improve how R output looks
+
+\def\myRuleColor{\color{black!50!white}}
+
+\DefineVerbatimEnvironment{Sinput}{Verbatim} {fontsize=\small} 
+\DefineVerbatimEnvironment{Soutput}{Verbatim} {fontsize=\small} 
+\fvset{listparameters={\setlength{\topsep}{0pt}}} 
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}} 
+
+\colorlet{GrayBoxGray}{blue!7}
+\makeatletter\newenvironment{graybox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{\textwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{GrayBoxGray}{\usebox{\@tempboxa}}
+}\makeatother
+
+\renewenvironment{Schunk}{
+
+\begin{graybox}}{\end{graybox}
+
+}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+\newlength{\tempfmlength}
+\newsavebox{\fmbox}
+\newenvironment{fmpage}[1]
+     {
+   \medskip
+   \setlength{\tempfmlength}{#1}
+   \begin{lrbox}{\fmbox}
+     \begin{minipage}{#1}
+     \vspace*{.02\tempfmlength}
+     \hfill
+     \begin{minipage}{.95 \tempfmlength}}
+     {\end{minipage}\hfill
+     \vspace*{.015\tempfmlength}
+     \end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}
+   \medskip
+   }
+
+
+\begin{document}
+\input{economicCapital-concordance}
+\setlength{\parindent}{0pt}
+%\parindent=0pt
+%\parskip=3mm
+
+
+%%%% some set-up for Sweave
+
+
+
+
+
+
+
+
+
+%%% R stuff to execute at the beginning of the document.
+%%% Note: even default packages need to be required here.
+
+%%%%%% main content goes below here
+%\pagestyle{empty}
+
+\maketitle
+
+
+\section{Risk}
+
+Risk is the human perception of uncertainty.  The mathematical model for uncertainty is probability theory. The economic model for human perception is utility theory.  Combining the two theories leads to the concept of the utility function of a random variable.  Given the standard assumptions on a utility function \(U'(x)>0,\,U''(x)\leq 0\), then the \emph{expected utility} \(\mathbb{E}[U(X)]\) is less than \(U(\mathbb{E}[X])\) by Jensen's inequality; implying that humans with such utility functions are \emph{risk averse}.  Practicable problems involving utility functions include investment and capital allocation.  However, while humans may reveal preferences through prices, the estimation of the utility function is essentially intractable: each human has unique, time dependent utility.  This has lead researchers to attempt to solve a different problem.  Starting with Markowitz in 1952 \cite{markowitz1952}, research has focused on minimizing \emph{risk} for a given level of expected \emph{gain}.  Improvements on Markowitz's framework typically focus on generalizing the mathematical representation of \emph{risk} to more diverse utility functions while retaining computational tractability.
+
+\section{Capital}
+
+Capital is the investment in an institution on which minimal obligations are placed on the re-payment of the investment.  Hence investment in a firm's equity is risky for the investor, but less risky for the institution.  Assuming risk-averse investors, the firm must pay more for equity than for debt.  A firm with a healthy amount of capital is not as risky to investors as a highly levered firm.  This leads to lower returns for the investor: due both to the equilibrium pressures of the market place raising demand for investment in the firm and from the accounting fact that there is less return on equity for a given income. Regardless of the actual level of capital, it behooves the firm to leverage its capital in such a way as to maximize its stockholder's risk adjusted return.  
+
+\section{Capital and Risk}
+
+A firm, regardless of industry, invests the stockholder's capital in risky ventures.  The firm acts as an informed intermediary in its market: putting investor's capital to use in ways that the investor alone may not have the skill set or financial leverage to realize.  The level of risk that the firm takes can destroy or create value for the stockholder. The firm can invest in risky ventures without adequate capital and returns commiserate with the risk.  This is true even for relatively risk-less investments: if a firm invests all its capital in treasury bonds it will return less than the market risk-free rate due to administrative overheard.  
+\\
+\\
+If the firm allocates capital to each investment then it is not difficult to measure the relative profitability of each investment.  If the firm has a target return on equity then it can base investment decisions on the relative return of each investment.  If the capital is properly allocated to each investment the firm is guaranteed to provide value to its stockholders by adhering to its target.  
+\\
+\\
+The allocation of capital to each investment should be risk-based.  For a given level of return, riskier investments are less preferred.  If more capital is required for riskier investments, the firm will naturally allocate less resources to riskier investments without commiserate return.  An efficient firm will allocate capital in exact proportion to the risk of the investments, and the firm's aggregated risk will be equal to the firm's equity.  
+\\
+\\
+A common caution is that risk and capital are at odds throughout the economic cycle.  Near the peak, risk is low but there is a large capital buffer.  Meanwhile, during the recession, risk is high and capital is depleted.  This discrepancy implies that risk and capital will not be in equilibrium regardless of the sophistication of the firm's capital allocation strategy.  However, this caution is unwarranted.  The risk is actually highest at the peak of the cycle.  In the case of a financial institution, lending standards may be relaxed and liquidity needs be overlooked.  A recession is the realization of the risk taken on during the peak.  In this sense both capital and risk are counter-cyclical.
+\\
+\\
+The remainder of this document will describe methods to measure and allocate risk to investments for the purposes of allocating shareholder's capital and maximizing shareholder return.
+
+
+\section{Risk Measures}
+
+Consider a portfolio \(X\).  This portfolio is time dependent, possibly continuous, and can be represented by the time series \(X_{t_1},\, X_{t_2},...X_{t_N}\).  It is common to be concerned not with the value of \(X_{t_i}\), but the change in the value of \(X_{t_i}\).  This change tends to be defined differently depending on the asset in question.  Loan portfolios typically model \(X_{t_{i+1}}-X_{t_i}\) while security portfolios typically model \(\mathrm{ln}(X_{t_{i+1}}/X_{t_i})\).  For the purposes of this section, the model for the return time series is unimportant. For notational convenience, this return sequence will characterize \(X\): for example, the expected return will be written \(\mathbb{E}[X]\).  
+
+\begin{riskmeasure}
+A \emph{Risk Measure} is a function \(\rho: X \to \mathbb{R}\).  
+\end{riskmeasure}
+
+To be consistent with common industry practice, in this document a higher \(\rho(X)\) will be associated with higher risk.  A risky portfolio will typically have \(\rho(X)>0\).  \(\rho(X)\) should be chosen in such a way that it is consistent with utility theory in the following sense: Fix \(\mathbb{E}[X_i]=\mathbb{E}[X_j]\).  Then
+\[\rho(X_i) < \rho(X_j) \implies \mathbb{E}[U(X_i)] > \mathbb{E}[U(X_j)] \]
+The hope is that \(\rho(X)\) satisfies the above condition for a broad set of \(U\).  Markowitz's definition of \(\rho(X)\) is only applicable for quadratic utility functions (or if \(X\) is Gaussian).  This shortcoming has led to the development of more sophisticated formulations of \(\rho(X)\).  An ``axiomatic'' formulation for \(\rho(X)\) was given in \cite{artzner1999} and is as follows:
+
+\begin{riskmeasure}
+A \emph{coherent} risk measure satisfies the following:
+\begin{enumerate}
+\item \(\mathbb{P}(X_j=a)=1 \implies \rho(X_i+X_j)=\rho(X_i)-a\) (risk free returns do not add risk)
+\item \(\rho(X_j+X_i) \leq \rho(X_i)+\rho(X_j)\) (diversification is beneficial) 
+\item \(\mathbb{P}(X_j<X_i)=1 \implies \rho(X_j) > \rho(X_i)\) (worse outcomes increase risk)
+\item \(\rho(aX)=a\rho(X), \, a \in \mathbb{R} ^+ \) (doubling the portfolio doubles the risk)
+
+\end{enumerate}
+\end{riskmeasure}
+
+It is important to note that a coherent risk measure need not be consistent with utility theory \cite{tsanakas2003}.  
+
+\begin{theorem}  A coherent risk measure is convex. 
+\end{theorem}
+
+\begin{proof}
+
+From property \(2\) and \(4\), \(\rho(aX_i+bX_j)\leq a\rho(X_i)+b \rho(X_j)\).  Letting \(b=1-a\), convexity follows.
+
+\end{proof}
+
+Thus a coherent risk measure is computationally convenient from an optimization point of view.
+
+\subsection{Use of Risk Measures}
+
+A financial institution's goal is to maximize shareholder value subject to a risk constraint.  This goal manifests itself in a series of decisions that financial institutions must continuously make:
+
+\begin{enumerate}
+\item Should asset \(X_i\) be added to the bank's portfolio?
+\item How much capital is required for a given set of assets?
+\item What is the optimal allocation of assets?
+\end{enumerate}
+
+These questions are interconnected and can be informed by the judicial use of risk measures.  The following is a list of possible applications that answers each question:
+\begin{enumerate}
+\item The bank's new portfolio will have risk \(\rho(X+X_i)\leq \rho(X)+\rho(X_i)\).  Thus if the bank has sufficient appetite for \(\rho(X)+\rho(X_i)\) it is guaranteed to have sufficient appetite for \(\rho(X+X_i)\).
+\item It is possible that on a risk adjusted basis some sets of assets are under or over performing.  Aggregating this risk can lead to informed decisions about the profitability and value added of varying sets of assets.  
+\item The convexity of the risk measure can lead to computationally feasible optimization problems such as allocating sets of assets.  
+\end{enumerate}
+
+\subsection{Examples of Risk Measures}
+
+
+\subsubsection{Standard Deviation Risk Measures}
+\begin{riskmeasure}
+\(\rho\) is a \emph{standard deviation}  based risk measure (denoted \(\rho_s)\)) if \(\rho(X, c)=-\mathbb{E}[X]+c\sqrt{\mathbb{E}[X^2]-\mathbb{E}[X]^2}=-\mu+ c \sigma,\,c\in \mathbb{R}^+\).
+\end{riskmeasure}
+
+\begin{prop}
+\(\rho_s\) is not coherent.
+\end{prop}
+
+\begin{proof}
+Consider two assets with the following possible outcomes:
+\begin{center}
+\begin{tabular}{ c| c c c }
+  \(\Omega\) & \(\mathbb{P}(\omega)\) & \(X_1\) & \(X_2\) \\
+  \hline
+  \(\omega_1\)  &.5 & -3 & -2 \\
+  \(\omega_2\)  & .5 & -1 & 4 \\
+\end{tabular}
+\end{center}
+
+Clearly \(X_1 < X_2 \,\forall \, \omega \in \Omega\).  \(\rho_s(X_1)=2+c\), \(\rho_s(X_2)=-1+9c\).  Take \(c=1\).  Then \(\rho_s(X_1, 1)<\rho_s(X_2, 1)\), violating property 2.  
+
+\end{proof}
+
+Despite the lack of coherence, the standard deviation is a popular risk measure due to analytical and computational convenience and its coherence when \(X\) is Gaussian.  
+
+\subsubsection{VaR}
+
+\begin{riskmeasure}
+\(\rho\) is the Value at Risk (denoted \(\rho_v\)) if  \(\rho_v(X, \alpha)=-\sup{ \{q \in \mathbb{R}:\mathbb{P}(X< q) \leq \alpha\} }\) for \(\alpha \in (0, 1)\).\end{riskmeasure}
+
+
+\begin{example}
+
+Consider the discrete random variable \(X_1\) with the following distribution.
+
+\begin{center}
+\begin{tabular}{c| c c c}
+\(\Omega\) & \(\mathbb{P}(\omega)\) & \(X\) & \(\mathbb{P}(X < X(\omega))\) \\
+\hline
+\(\omega_1\) & .5 & -2 & 0 \\
+\(\omega_2\) & .5 & 4 & .5\\
+\end{tabular}
+\end{center}
+
+Thus the Value at Risk for \(\alpha=.05\) is \(2\) since \(-2\) is the largest \(X\) such that \(\mathbb{P}(X < X(\omega))\leq .05\).  If \(\mathbb{P}(\omega_1)=.04\) instead of \(.5\), the Value at Risk is \(-4\) since \(4\) is the largest \(X\) such that \(\mathbb{P}(X < X(\omega))\leq .05\).
+\end{example}
+
+\begin{example}
+When the distribution of \(X\) is continuous, the Value at Risk is simply the quantile function of \(X\) at \(\alpha\).  Consider the Guassian random variable \(X_1\). \[\rho_v(X)=-\sup{ \{q \in \mathbb{R}:\mathbb{P}(X< q) = \alpha \}} =  -\sup{ \{q \in \mathbb{R}:\mathbb{P}(\mu+\sigma Z < q) = \alpha \}}, \,Z \sim \mathcal{N}(0, 1)  \]
+\[=-\sup{ \left\{q \in \mathbb{R}:\mathbb{P}\left(Z <\frac{q-\mu}{\sigma}\right) = \alpha \right\}}\]
+\[=-\sup{ \left\{q \in \mathbb{R}:\frac{q-\mu}{\sigma} = \Phi^{-1}(\alpha) \right\}}\]
+
+\[=-\mu-\sigma\Phi^{-1}(\alpha) \]
+\[=-\mu+\sigma \Phi^{-1}(1-\alpha)\]
+\end{example}
+
+\begin{prop}
+\(\rho_v\) is not coherent.
+\end{prop}
+\begin{proof}
+Consider two independent assets with the following properties:
+\[X_{1, 2}=\begin{cases}
+-100 & \text{with probability .04}\\
+5 & \text{with probability .96}
+
+\end{cases} \]
+
+Constructing the table for \(X_1+X_2\), 
+
+\begin{center}
+\begin{tabular}{c|  c c c}
+\(\Omega\) & \(\mathbb{P}(\omega)\) & \(X_1+X_2\) &  \(\mathbb{P}(X_1+X_2 < X_1(\omega)+X_2(\omega))\)  \\
+\hline
+\(\omega_1\) & .0016 & -200 & 0 \\
+\(\omega_2\) & .0384 & -95 & .0016\\
+\(\omega_3\) & .0384 & -95 & .0016 \\
+\(\omega_4\) & .9216 & 10 & .0768 \\
+\end{tabular}
+\end{center}
+
+
+While \(\rho_v (X_1, .05)=\rho_v (X_2, .05)=-5\), \(\rho_v (X_1+X_2, .05)=95\) thus violating property 2.
+
+\end{proof}
+
+Value at Risk is not convex and makes optimization difficult and possibly dangerous. However, VaR has the benefit of being easy to backtest if \(\alpha\) is relatively large and the time horizon is relatively short.  If the VaR is used as a measure of \emph{enterprise} risk, the time horizon is likely to be a year and the \(\alpha\) is likely to be very small.  Indeed, the VaR for the enterprise is usually chosen such that losses in excess of the VaR lead to insolvency.  Using VaR for this purpose lends its lack of coherence irrelevant: stockholders are unconcerned about losses that exceed insolvency.
+
+\subsubsection{Expected Shortfall}
+
+\begin{riskmeasure}\label{defShortfall}
+
+\(\rho\) is the Expected Shortfall (denoted \(\rho_g\)) if \(\rho_g (X, \alpha)=\frac{1}{\alpha}\int_0 ^ \alpha \rho_v(X, u) du\)
+
+\end{riskmeasure}
+
+\begin{prop}
+If \(X\) has a continuous density \(f(x)\), then \[\rho_g(X, \alpha)=-\frac{1}{\alpha}\int_{-\infty} ^ {-\rho_v(X, \alpha)} x f(x) dx\]
+
+\end{prop}
+
+\begin{proof}
+Since \(f(x)\) is continuous, \(\rho_v(X, u)=-F^{-1}(u)\) where \(F(x)\) is the cumulative density function of \(X\).  Substituting into the integral in \ref{defShortfall}, 
+\[\rho_g (X, \alpha)=-\frac{1}{\alpha}\int_0 ^ \alpha F^{-1}(u) du\]
+\[=-\frac{1}{\alpha}\int_{F^{-1}(0)} ^ {F^{-1}(\alpha)} F^{-1}(F(x)) dF(x)\]
+\[=-\frac{1}{\alpha}\int_{-\infty} ^ {-\rho_v(X, \alpha)} x f(x) dx\]
+
+\end{proof}
+
+\begin{example}
+
+
+\end{example}
+
+\section{Allocating Risk}
+\subsection{Methods for Allocation}
+There are two methods of allocating or pricing risk at a firm.  The first is to use a suitable coherent risk measure and apply it to each asset in the firm (or, for convenience, some set of assets).  Once found, these metrics can be added to determine the firm's ``total'' risk (the bottom up approach).  Since the risk measure is sub-additive, this estimate will be guaranteed to be conservative.  However, there is no reason to believe that this estimate will be close to the amount of capital that the firm holds or desires to hold.  Building a capital structure from the ground up imposes significant model risk:  even small errors in modeling (either from mispecification, miscalculation, or simply estimation error) can become large when summed over an entire portfolio.  Additionally, even if the risk measure is correctly computed, the degree of conservatism is unknown.
+\\
+\\
+The second method is to model the entire firm's return distribution and compute the level of capital required (the top down approach).  This value is then allocated to each asset in the portfolio.  While there may be significant model risk in such an approach as well, modeling the entire firm's distribution of returns tends to be somewhat parsimonious compared to a bottom-up approach.  In addition, the outputs of such a model can be checked against common sense and historical results.  Allocating risk to assets will then likely be at least rank order consistent.  This top down model is the approach assumed for the remainder of this section. 
+
+\subsection{Risk Contributions}
+Let \(\rho_i\) denote the risk allocated to each asset.  The following are two properties that \(\rho_i\) should have.
+\begin{enumerate} 
+\item \(\sum_i \rho_i(X_i)=\rho(X)\) \label{props1}
+\item \(\frac{\mathbb{E}[X_i]}{\rho_i(X_i)} >\frac{\mathbb{E}[X]}{\rho(X)} \implies \frac{\mathbb{E}[X+X_i]}{\rho(X+X_i)}>\frac{\mathbb{E}[X]}{\rho(X)}\) \label{props2}
+\end{enumerate}
+The last property indicates that adding an asset with risk adjusted return greater than the portfolio improves the portfolio's risk adjusted return.  These two properties completely determine \(\rho_i\) \cite{tasche2007}.
+
+\begin{riskmeasure}
+The \emph{Euler risk contribution} \(\rho_i\) is \[\frac{d\rho(X+hX_i)}{dh}\bigg|_{h=0}\]
+\end{riskmeasure}
+
+This definition satisfies properties (\ref{props1}) and (\ref{props2}) if \(\rho\) satisfies coherence property 4 REFTHIS.
+
+\begin{proof}
+\(\rho(X)\) can be written as \(f(\mathbf{1}),\, f:\mathbb{R}^n \to \mathbb{R}\), where \(f(\mathbf{u})=\rho\left(\sum_i u_i X_i\right)\).  Notice the following:
+\[\frac{d\rho(X+hX_i)}{dh}\bigg|_{h=0}=\frac{\partial f} {\partial u_i}\left(\mathbf{1}\right)\]
+
+By coherence property 4 REFTHIS, \(f\left(\lambda \mathbf{u}\right)=\lambda f\left(\mathbf{u}\right)\). 
+
+The derivative of the left hand side with respect to \(\lambda\), 
+\[\frac{\partial f(\lambda \mathbf{u})}{\partial \lambda}=\sum_i f'(\lambda \mathbf{u})\frac{\partial \lambda \mathbf{u}}{\partial \lambda}=
+\sum_i u_i \frac{\partial f\left(\lambda \mathbf{u}\right)} {\partial u_i}\]
+Clearly the derivative of the right hand side is
+\[f(\mathbf{u})\]
+Setting these equal, 
+\[\sum_i u_i \frac{\partial f\left(\lambda \mathbf{u}\right)} {\partial u_i}=f(\mathbf{u})\]
+Letting \(\lambda=1\) and \(\mathbf{u}=\mathbf{1}\), property (\ref{props1}) follows.
+\\
+\\
+To prove property (\ref{props2}), note that 
+\[\frac{d\rho(X+hX_i)}{dh}\bigg|_{h=0}=\lim_{\Delta h \to 0}\frac{\rho(X+(h+\Delta h)X_i)-\rho(X+hX_i)}{\Delta h} \]
+
+\end{proof}
+
+\begin{thebibliography}{9}
+
+\bibitem{artzner1999}
+P. Artzner, F. Delbaen, J.-M. Eber, and D. Heath.  \emph{Coherent measures of risk} Mathematical Finance, 9 (3):203-228, 1999.
+
+\bibitem{markowitz1952}
+Harry Markowitz, \emph{Portfolio Selection
+}.
+The Journal of Finance, Vol. 7, No. 1. (Mar., 1952), pp. 77-91.
+
+
+\bibitem{tasche2001}
+Dirk Tasche, 
+\emph{Expected Shortfall: a natural coherent alternative
+to Value at Risk}.
+Economic Notes, 31(2):379-388, 2002a.
+
+\bibitem{tsanakas2003}
+Andreas Tsanakas, Evangelia Desli, \emph{Risk Measures and Theories of Choice}. British Actuarial Journal, 9(4), p.959-991.
+
+\bibitem{tasche2007}
+  Dirk Tasche, Carlo Acerbi,
+  \emph{Euler Allocation: Theory and Practice}.
+  Working paper, Zentrum Marhematic (SCA),
+TU Munchen, Germany, August 2007.
+
+\end{thebibliography}
+\end{document}
